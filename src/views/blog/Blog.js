@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
+import Container from "@material-ui/core/Container";
 
 class Blog extends Component {
     render() {
         return (
-            <div>
+            <Container fixed style={{ marginTop: "70px" }}>
                 Blog
-            </div>
+            </Container>
         );
     }
 }

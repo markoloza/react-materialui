@@ -1,8 +1,8 @@
 import React from "react";
 import Navbar from "./components/Navbar";
-import Blog from "./components/Blog";
-import News from "./components/News";
-import Weather from "./components/Weather";
+import Blog from "./views/blog/Blog";
+import News from "./views/news/News";
+import Weather from "./views/weather/Weather";
 import { BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
 
