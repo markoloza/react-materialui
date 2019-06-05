@@ -5,6 +5,7 @@ class Weather extends Component {
         return (
             <div>
                 Weather
+                <button>hhhhhh</button>
             </div>
         );
     }
