@@ -6,6 +6,8 @@ import NewsItem from "./NewsItem";
 import axios from "axios";
 import SearchBar from "./SearchBar";
 import Box from "@material-ui/core/Box";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import LoadMoreBtn from "./LoadMoreBtn";
 
 const DEFAULT_QUERY = "redux";
 const PATH_BASE = "https://hn.algolia.com/api/v1";
@@ -17,7 +19,7 @@ const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
 class News extends Component {
   state = {
     result: null,
-    searchTerm: DEFAULT_QUERY
+    searchTerm: 'redux'
   };
 
   componentDidMount = async () => {
@@ -26,14 +28,27 @@ class News extends Component {
   };
 
   renderListOfSearchedTopics = () => {
-    const {result} = this.state
-    if(!result) {
-      return (<div>No data</div>)
+    const { result } = this.state;
+    if (!result) {
+      return <LinearProgress color="secondary" />;
     }
     return result.map((listItem, i) => {
-      return result ? (<NewsItem key={i} listItem={listItem} />) : (<div>No data</div>);
+      return result ? (
+        <NewsItem key={i} listItem={listItem} />
+      ) : (
+        <LinearProgress />
+      );
     });
   };
+
+  handleChange = (e) => {
+    this.setState({searchTerm: e.target.value})
+    console.log(this.state.searchTerm)
+  };
+
+  handleSubmit= (e) => {
+    e.preventdefault()
+  }
 
   render() {
     return (
@@ -42,9 +57,10 @@ class News extends Component {
           <Typography variant="h6">
             <Box>News</Box>
             <Divider />
-            <SearchBar />
+            <SearchBar value={this.state.searchTerm} onChange={this.handleChange} onClick={this.handleSubmit} />
           </Typography>
           {this.renderListOfSearchedTopics()}
+          {this.state.result && <LoadMoreBtn />}
         </Container>
       </>
     );

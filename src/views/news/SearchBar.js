@@ -11,49 +11,55 @@ const useStyles = makeStyles({
   root: {
     background: "#ffffff",
     padding: "2px 4px",
-    display: "flex",
-    alignItems: "center",
     width: 400,
     margin: "40px auto"
+  },
+  form: {
+    display: "flex",
+    alignItems: "center"
   },
   input: {
     marginLeft: 8,
     flex: 1,
-    color: "#FF6601",
+    color: "#FF6601"
   },
   iconButton: {
     padding: 10,
-    color: "#FF6601",
+    color: "#FF6601"
   },
   divider: {
     width: 1,
     height: 28,
     margin: 4,
-    backgroundColor: "#FF6601",
-  },
+    backgroundColor: "#FF6601"
+  }
 });
 
-export default function CustomizedInputBase() {
+export default function CustomizedInputBase(props) {
   const classes = useStyles();
+  const { value, onChange, onSubmit } = props;
 
   return (
     <Paper className={classes.root}>
-      <InputBase
-        className={classes.input}
-        placeholder="Search News..."
-        inputProps={{ "aria-label": "Search Google Maps" }}
-      />
-      <IconButton className={classes.iconButton} aria-label="Search">
-        <SearchIcon />
-      </IconButton>
-      <Divider className={classes.divider} />
-      <IconButton
-        color="primary"
-        className={classes.iconButton}
-        aria-label="Directions"
-      >
-        <DirectionsIcon />
-      </IconButton>
+      <form onSubmit={onSubmit} className={classes.form}>
+        <InputBase
+          value={value}
+          onChange={onChange}
+          className={classes.input}
+          placeholder="Search News..."
+        />
+        <IconButton className={classes.iconButton} aria-label="Search">
+          <SearchIcon />
+        </IconButton>
+        <Divider className={classes.divider} />
+        <IconButton
+          color="primary"
+          className={classes.iconButton}
+          aria-label="Directions"
+        >
+          <DirectionsIcon />
+        </IconButton>
+      </form>
     </Paper>
   );
 }
