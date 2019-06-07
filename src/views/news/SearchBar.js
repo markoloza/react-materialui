@@ -35,7 +35,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function CustomizedInputBase(props) {
+function CustomizedInputBase(props) {
   const classes = useStyles();
   const { value, onChange, onSubmit } = props;
 
@@ -63,3 +63,6 @@ export default function CustomizedInputBase(props) {
     </Paper>
   );
 }
+
+
+export default  CustomizedInputBase

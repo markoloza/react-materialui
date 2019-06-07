@@ -7,8 +7,8 @@ import { NavLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
-  appbar:  {
-    background: '#FF6601',
+  appbar: {
+    background: "#FF6601"
   },
   root: {
     borderRadius: 3,
@@ -33,11 +33,11 @@ const useStyles = makeStyles(theme => ({
   },
   typography: {
     textDecoration: "none",
-    fontWeight: '600',
-    color: '#fff'
+    fontWeight: "600",
+    color: "#fff"
   },
   links: {
-    textDecoration: 'none',
+    textDecoration: "none"
   }
 }));
 
@@ -52,7 +52,6 @@ function Navbar(props) {
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-
             <NavLink className={classes.links} to="/">
               <Button className={classes.root} color="inherit">
                 <Typography className={classes.typography} variant="button">
@@ -77,6 +76,13 @@ function Navbar(props) {
               </Button>
             </NavLink>
 
+            <NavLink className={classes.links} to="/login">
+              <Button className={classes.root} color="inherit">
+                <Typography className={classes.typography} variant="button">
+                  Login
+                </Typography>
+              </Button>
+            </NavLink>
           </div>
         </Toolbar>
       </AppBar>

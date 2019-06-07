@@ -15,8 +15,8 @@ const useStyles = makeStyles(theme => ({
   },
   chip: {
     height: 20,
-    fontSize: '12px',
-    margin: theme.spacing(1),
+    fontSize: "12px",
+    margin: theme.spacing(1)
   }
 }));
 
@@ -25,9 +25,7 @@ const NewsItem = props => {
   return (
     <>
       <Paper className={classes.root}>
-        <Typography>
-          {props.listItem.title}
-        </Typography>
+        <Typography>{props.listItem.title}</Typography>
         <Chip
           label={props.listItem.created_at}
           className={classes.chip}
@@ -38,13 +36,15 @@ const NewsItem = props => {
           className={classes.chip}
           component="p"
         />
-        <Chip
-          label={props.listItem.url}
-          className={classes.chip}
-          component="a"
-          href={props.listItem.url}
-          clickable
-        />
+        {props.listItem.url && (
+          <Chip
+            label={props.listItem.url}
+            className={classes.chip}
+            component="a"
+            href={props.listItem.url}
+            clickable
+          />
+        )}
       </Paper>
     </>
   );

@@ -9,22 +9,25 @@ import Box from "@material-ui/core/Box";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import LoadMoreBtn from "./LoadMoreBtn";
 
-const DEFAULT_QUERY = "redux";
 const PATH_BASE = "https://hn.algolia.com/api/v1";
 const PATH_SEARCH = "/search";
 const PARAM_SEARCH = "query=";
-
-const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
+const DEFAULT_QUERY = '';
 
 class News extends Component {
   state = {
     result: null,
-    searchTerm: 'redux'
+    searchTerm: DEFAULT_QUERY
+  };
+
+  fetchSearchTopStories = async (searchTerm) => {
+    const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`;
+    const response = await axios.get(url);
+    this.setState({ result: response.data.hits });
   };
 
   componentDidMount = async () => {
-    const response = await axios.get(url);
-    this.setState({ result: response.data.hits });
+    this.fetchSearchTopStories(DEFAULT_QUERY);
   };
 
   renderListOfSearchedTopics = () => {
@@ -41,14 +44,14 @@ class News extends Component {
     });
   };
 
-  handleChange = (e) => {
-    this.setState({searchTerm: e.target.value})
-    console.log(this.state.searchTerm)
+  handleChange = e => {
+    this.setState({ searchTerm: e.target.value });
   };
 
-  handleSubmit= (e) => {
-    e.preventdefault()
-  }
+  handleSubmit = e => {
+    e.preventDefault();
+    this.fetchSearchTopStories(this.state.searchTerm)
+  };
 
   render() {
     return (
@@ -57,7 +60,11 @@ class News extends Component {
           <Typography variant="h6">
             <Box>News</Box>
             <Divider />
-            <SearchBar value={this.state.searchTerm} onChange={this.handleChange} onClick={this.handleSubmit} />
+            <SearchBar
+              value={this.state.searchTerm}
+              onChange={this.handleChange}
+              onSubmit={this.handleSubmit}
+            />
           </Typography>
           {this.renderListOfSearchedTopics()}
           {this.state.result && <LoadMoreBtn />}
